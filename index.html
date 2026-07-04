@@ -1,1 +1,565 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العراب كافيه | منيو على مزاجك</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* التنسيق العام والألوان المستوحاة من هوية العراب كافيه */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1a1a1a;
+            --accent-color: #ff7a00; /* اللون البرتقالي المميز للمنيو */
+            --text-color: #ffffff;
+            --muted-text: #aaaaaa;
+            --border-color: #2c2c2c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* الهيدر لشاشات الكمبيوتر والموبايل */
+        header {
+            background-color: rgba(26, 26, 26, 0.95);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* البانر الرئيسي الترحيبي */
+        .hero {
+            height: 55vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(18,18,18,1)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1200') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 44px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--muted-text);
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #000;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #e06c00;
+        }
+
+        /* حاوية التبويبات للتنقل السريع والذكي في المنيو */
+        .menu-tabs {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 15px 5%;
+            position: sticky;
+            top: 70px;
+            background-color: var(--bg-color);
+            z-index: 900;
+            border-bottom: 1px solid var(--border-color);
+            scrollbar-width: none;
+        }
+        .menu-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* أقسام القائمة */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 5% 40px 5%;
+        }
+
+        .section-title {
+            font-size: 26px;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            border-right: 4px solid var(--accent-color);
+            padding-right: 15px;
+            margin-top: 50px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 122, 0, 0.4);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .item-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .item-title-en {
+            font-size: 13px;
+            color: var(--muted-text);
+            display: block;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .item-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-color);
+            white-space: nowrap;
+        }
+        
+        /* لتنسيق الأحجام (صغير / كبير) للكوكتيلات والعصائر */
+        .price-sizes {
+            display: flex;
+            gap: 15px;
+        }
+        .price-size-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        .price-size-item span {
+            font-size: 11px;
+            color: var(--muted-text);
+            font-weight: normal;
+        }
+
+        /* قسم معلومات التواصل والموقع */
+        .info-section {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 60px 5%;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .info-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-container h2 {
+            color: var(--accent-color);
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .info-container p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #eee;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background-color: #222;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* الفوتر */
+        footer {
+            background-color: #0d0d0d;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: var(--muted-text);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* شاشات الجوال */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px;
+            }
+            nav {
+                gap: 10px;
+            }
+            .hero {
+                height: 45vh;
+            }
+            .hero-content h1 {
+                font-size: 30px;
+            }
+            .hero-content p {
+                font-size: 15px;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">العراب كافيه</a>
+            <nav>
+                <a href="#home">الرئيسية</a>
+                <a href="#coffee-section">المنيو</a>
+                <a href="#info">تواصل معنا</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>منيو <span>على مزاجك</span></h1>
+            <p>أجواء هادئة ومثالية تجمع بين جودة القهوة المختصة والمساحة المريحة للإنجاز والدراسة والعمل.</p>
+            <a href="#coffee-section" class="btn">تصفح المنيو الكامل</a>
+        </div>
+    </section>
+
+    <div class="menu-tabs">
+        <a href="#coffee-section" class="tab-btn">القهوة (Coffee)</a>
+        <a href="#iced-coffee-section" class="tab-btn">آيس كوفي</a>
+        <a href="#hot-choc-section" class="tab-btn">هوت شوكليت</a>
+        <a href="#iced-choc-section" class="tab-btn">آيس شوكليت</a>
+        <a href="#mojito-section" class="tab-btn">الموهيتو</a>
+        <a href="#smoothie-section" class="tab-btn">السموذي</a>
+        <a href="#frapp-section" class="tab-btn">الفرابتشينو</a>
+        <a href="#milkshake-section" class="tab-btn">الميلك شيك</a>
+        <a href="#cocktail-section" class="tab-btn">الكوكتيل والعصائر</a>
+        <a href="#dessert-section" class="tab-btn">الحلويات والمعجنات</a>
+        <a href="#ice-cream-section" class="tab-btn">الأيس كريم</a>
+    </div>
+
+    <div class="container">
+
+        <h2 id="coffee-section" class="section-title">قهوة / COFFEE</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">اسبريسو سنجل <span class="item-title-en">Espresso Single</span></div><div class="item-price">1.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">اسبريسو دبل <span class="item-title-en">Espresso Double</span></div><div class="item-price">1.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">امريكانو كوفي <span class="item-title-en">Americano Coffee</span></div><div class="item-price">1.25 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">كابتشينو <span class="item-title-en">Cappuccino</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فلات وايت <span class="item-title-en">Flat White</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سبانيش لاتيه <span class="item-title-en">Spanish Latte</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">كاراميل ميكاتو <span class="item-title-en">Caramel Macchiato</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">موكا <span class="item-title-en">Mocha</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">وايت موكا <span class="item-title-en">White Mocha</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">قهوة تركية سنجل <span class="item-title-en">Turkish Coffee Single</span></div><div class="item-price">0.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">قهوة تركية دبل <span class="item-title-en">Turkish Coffee Double</span></div><div class="item-price">1.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">كورنادو <span class="item-title-en">Cortado</span></div><div class="item-price">1.75 JOD</div></div></div>
+        </div>
+
+        <h2 id="iced-coffee-section" class="section-title">آيس كوفي / Iced Coffee</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس بستاشيو لاتيه <span class="item-title-en">Iced Pistachio Latte</span></div><div class="item-price">2.25 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس سبانيش لاتيه <span class="item-title-en">Iced Spanish Latte</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس موكا لاتيه <span class="item-title-en">Iced Mocha Latte</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس وايت لاتيه <span class="item-title-en">Iced White Latte</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس لاتيه <span class="item-title-en">Iced Latte</span></div><div class="item-price">1.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس امريكانو <span class="item-title-en">Iced Americano</span></div><div class="item-price">1.00 JOD</div></div></div>
+        </div>
+
+        <h2 id="hot-choc-section" class="section-title">هوت شوكليت / HOT Chocolate</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">هوت شوكليت <span class="item-title-en">Hot Chocolate</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">هوت نوتيلا <span class="item-title-en">Hot Nutella</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">هوت لوتس <span class="item-title-en">Hot Lotus</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">هوت بستاشيو <span class="item-title-en">Hot Pistachio</span></div><div class="item-price">1.75 JOD</div></div></div>
+        </div>
+
+        <h2 id="iced-choc-section" class="section-title">آيس شوكليت / Iced Chocolate</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس نوتيلا <span class="item-title-en">Iced Nutella</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس لوتس <span class="item-title-en">Iced Lotus</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">آيس بستاشيو <span class="item-title-en">Iced Pistachio</span></div><div class="item-price">2.00 JOD</div></div></div>
+        </div>
+
+        <h2 id="mojito-section" class="section-title">موهيتو / MOJITOS</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">موهيتو كلاسيك <span class="item-title-en">Classic Mojito</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">موهيتو توت <span class="item-title-en">Blue Mojito</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">موهيتو باشن فروت <span class="item-title-en">Passion Fruit Mojito</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">موهيتو فراولة <span class="item-title-en">Strawberry Mojito</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">موهيتو توت بري <span class="item-title-en">Raspberry Mojito</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">موهيتو بطيخ <span class="item-title-en">Watermelon Mojito</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">موهيتو كيوي <span class="item-title-en">Kiwi Mojito</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">موهيتو ريد بول <span class="item-title-en">Red Bull Mojito</span></div><div class="item-price">3.00 JOD</div></div></div>
+        </div>
+
+        <h2 id="smoothie-section" class="section-title">سموذي / SMOOTHIES</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">سموذي مانجا <span class="item-title-en">Mango Smoothie</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سموذي فراولة <span class="item-title-en">Strawberry Smoothie</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سموذي توت مشكل <span class="item-title-en">Mix berry Smoothie</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سموذي ليمون ونعنع <span class="item-title-en">Lemon with mint Smoothie</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سموذي باشن فروت <span class="item-title-en">Passion fruit Smoothie</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سموذي موز مع فراولة <span class="item-title-en">Banana with strawberry Smoothie</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سموذي مانجا وباشن <span class="item-title-en">Mango and Passion Smoothie</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سموذي كيوي <span class="item-title-en">Kiwi Smoothie</span></div><div class="item-price">2.00 JOD</div></div></div>
+        </div>
+
+        <h2 id="frapp-section" class="section-title">فرابتشينو / Frappuccino</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">فرابتشينو كراميل <span class="item-title-en">Frappuccino Caramel</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فرابتشينو بستاشيو <span class="item-title-en">Frappuccino pistachio</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فرابتشينو لوتس <span class="item-title-en">Frappuccino Lotus</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فرابتشينو شوكليت <span class="item-title-en">Frappuccino Chocolate</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فرابتشينو اوريو <span class="item-title-en">Frappuccino Oreo</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فرابتشينو نوتيلا <span class="item-title-en">Frappuccino Nutella</span></div><div class="item-price">2.50 JOD</div></div></div>
+        </div>
+
+        <h2 id="milkshake-section" class="section-title">ميلك شيك / MILKSHAKES</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">اوريو ميلك شيك <span class="item-title-en">Oreo Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">شوكليت ميلك شيك <span class="item-title-en">Chocolate Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">عربية ميلك شيك <span class="item-title-en">Arabic Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فانيلا ميلك شيك <span class="item-title-en">Vanilla Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فراولة ميلك شيك <span class="item-title-en">Strawberry Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">تشيز كيك ميلك شيك <span class="item-title-en">Cheesecake Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">سنكرز ميلك شيك <span class="item-title-en">Snickers Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">كندر ميلك شيك <span class="item-title-en">Kender Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">نوتيلا ميلك شيك <span class="item-title-en">Nutella Shake</span></div><div class="item-price">2.50 JOD</div></div></div>
+        </div>
+
+        <h2 id="cocktail-section" class="section-title">كوكتيل وعصائر طازجة / Cocktail & Fresh Juices</h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="item-header">
+                    <div class="item-title">كوكتيل قطع <span class="item-title-en">Cocktail Pieces</span></div>
+                    <div class="price-sizes">
+                        <div class="price-size-item">2.50<span>صغير</span></div>
+                        <div class="price-size-item">3.50<span>كبير</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-header">
+                    <div class="item-title">كوكتيل قطع مع قشطة وعسل</div>
+                    <div class="price-sizes">
+                        <div class="price-size-item">3.00<span>صغير</span></div>
+                        <div class="price-size-item">4.00<span>كبير</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-header">
+                    <div class="item-title">امبراطور موز ومانجا</div>
+                    <div class="price-sizes">
+                        <div class="price-size-item">2.50<span>صغير</span></div>
+                        <div class="price-size-item">3.50<span>كبير</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-header">
+                    <div class="item-title">عصير برتقال طبيعي <span class="item-title-en">Orange Juice</span></div>
+                    <div class="price-sizes">
+                        <div class="price-size-item">1.25<span>صغير</span></div>
+                        <div class="price-size-item">1.75<span>كبير</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-header">
+                    <div class="item-title">عصير ليمون ونعناع <span class="item-title-en">Lemon Mint</span></div>
+                    <div class="price-sizes">
+                        <div class="price-size-item">1.25<span>صغير</span></div>
+                        <div class="price-size-item">1.75<span>كبير</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-header">
+                    <div class="item-title">عصير رمان طبيعي <span class="item-title-en">Pomegranate Juice</span></div>
+                    <div class="price-sizes">
+                        <div class="price-size-item">1.50<span>صغير</span></div>
+                        <div class="price-size-item">2.00<span>كبير</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="dessert-section" class="section-title">الحلويات والمخبوزات / Desserts, Waffle & Crepe</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">وافل بلز كلاسيك <span class="item-title-en">Waffle Classic</span></div><div class="item-price">1.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">وافل بلز مكس <span class="item-title-en">Waffle Mix</span></div><div class="item-price">2.25 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">وافل بلز مكس إضافة بستاشيو</div><div class="item-price">2.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">كريب كلاسيك <span class="item-title-en">Crepe Classic</span></div><div class="item-price">2.25 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">كريب مكس <span class="item-title-en">Crepe Mix</span></div><div class="item-price">2.75 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">بان كيك كلاسيك <span class="item-title-en">Pancakes Classic</span></div><div class="item-price">2.00 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">بان كيك مكس <span class="item-title-en">Pancakes Mix</span></div><div class="item-price">2.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">فيريرو روشيه حلا <span class="item-title-en">Ferrero Rocher</span></div><div class="item-price">1.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">تيراميسو <span class="item-title-en">Tiramisu</span></div><div class="item-price">1.50 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">تشيز كيك لوتس <span class="item-title-en">Lotus Cheesecake</span></div><div class="item-price">1.50 JOD</div></div></div>
+        </div>
+
+        <h2 id="ice-cream-section" class="section-title">أيس كريم / Ice Cream</h2>
+        <div class="menu-grid">
+            <div class="menu-item"><div class="item-header"><div class="item-title">أيس كريم شوكولاته</div><div class="item-price">0.85 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">أيس كريم فانيلا</div><div class="item-price">0.85 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">أيس كريم اوريو</div><div class="item-price">0.85 JOD</div></div></div>
+            <div class="menu-item"><div class="item-header"><div class="item-title">أيس كريم لوتس</div><div class="item-price">0.85 JOD</div></div></div>
+        </div>
+
+    </div>
+
+    <section id="info" class="info-section">
+        <div class="info-container">
+            <h2>العراب كافيه</h2>
+            <p>📍 موقعنا: عمان، الأردن</p>
+            <p>🕒 أوقات العمل: نرحب بكم على مدار الساعة لتقديم أفضل تجربة قهوة ومساحة مريحة جداً وهادئة.</p>
+            <p style="font-size: 13px; color: var(--accent-color); margin-top: 10px;">* الأسعار أعلاه تشمل الضريبة والخدمة</p>
+            
+            <div class="social-buttons">
+                <a href="#" class="social-btn">📱 إنستغرام</a>
+                <a href="#" class="social-btn">🎵 تيك توك</a>
+                <a href="#" class="social-btn">💬 واتساب</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 جميع الحقوق محفوظة لـ العراب كافيه. تم التطوير والبرمجة بكل حب.</p>
+    </footer>
+
+</body>
+</html>
